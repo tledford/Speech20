@@ -10,3 +10,4 @@ try:
         print(" " + prediction["text"] + " (" + str(prediction["confidence"]*100) + "%)")
 except LookupError:                                 # speech is unintelligible
     print("Could not understand audio")
+
