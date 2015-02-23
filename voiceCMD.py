@@ -17,13 +17,11 @@ import os
 
 
 def open_chrome(data):
-	return "opening app"
 	os.system("open /Applications/Google\ Chrome.app http://www." + data + ".com/")
-
+	return "opening app"
 
 def close_chrome(data):
 	import subprocess
-	return "closing app"
 
 	#adapted from: https://discussions.apple.com/thread/4479819
 	script = """
@@ -39,7 +37,7 @@ def close_chrome(data):
 
 	#adapted from: http://stackoverflow.com/questions/14942709/closing-a-program-using-terminal-from-python
 	subprocess.call(['osascript', '-e', script])
-
+	return "closing app"
 
 def what_time(data):
 	from datetime import datetime
@@ -63,18 +61,18 @@ def what_day(data):
 					 5: "Saturday",
 					 6: "Sunday"}
 
-	month_dict = {0: "January",
-				  1: "February",
-				  2: "March",
-				  3: "April",
-				  4: "May",
-				  5: "June",
-				  6: "July",
-				  7: "August",
-				  8: "September",
-				  9: "October",
-				  10: "November",
-				  11: "December"}
+	month_dict = {1: "January",
+				  2: "February",
+				  3: "March",
+				  4: "April",
+				  5: "May",
+				  6: "June",
+				  7: "July",
+				  8: "August",
+				  9: "September",
+				  10: "October",
+				  11: "November",
+				  12: "December"}
 
 	month = datetime.today().month
 	day = datetime.today().day
@@ -86,7 +84,7 @@ def what_day(data):
 	return("Today is " + weekdays_dict[weekday] + " " + month_dict[month] + " " + str(day) + " " + str(year))
 
 
-def play_music():
+def play_music(data):
 	return "5"
 
 def joke(data):
@@ -94,36 +92,36 @@ def joke(data):
 
 	randNum = randrange(1,11)
 
-	joke_dict = {1: "",
-			  	 2: "",
-			  	 3: "",
-			  	 4: "",
-			  	 5: "",
-			  	 6: "",
-			  	 7: "",
-			   	 8: "",
-			  	 9: "",
-			  	 10: ""}
+	joke_dict = {1: "joke1",
+			  	 2: "joke2",
+			  	 3: "joke3",
+			  	 4: "joke4",
+			  	 5: "joke5",
+			  	 6: "joke6",
+			  	 7: "joke7",
+			   	 8: "joke8",
+			  	 9: "joke9",
+			  	 10: "joke10"}
 
 	#return joke_dict[r]
 
-def sleep():
+def sleep(data):
 	return "7"
 
 
-def wake():
+def wake(data):
 	return "8"
 
 
-def shutdown():
+def shutdown(data):
 	return "9"
 
 
-def record_memo():
+def record_memo(data):
 	return "10"
 
 
-def play_memo():
+def play_memo(data):
 	return "11"
 
 
@@ -143,21 +141,21 @@ def getVoiceCommand():
 						 "shutdown": shutdown, "record": record_memo, 
 						 "playback": play_memo};
 
-	# r = sr.Recognizer()
-	# with sr.Microphone() as source:                # use the default microphone as the audio source
-	#     audio = r.listen(source)                   # listen for the first phrase and extract it into audio data
-	# # with sr.WavFile("test.wav") as source:              # use "test.wav" as the audio source
-	# # 	audio = r.record(source)                        # extract audio data from the file
+	r = sr.Recognizer()
+	with sr.Microphone() as source:                # use the default microphone as the audio source
+	    audio = r.listen(source)                   # listen for the first phrase and extract it into audio data
+	# with sr.WavFile("test.wav") as source:              # use "test.wav" as the audio source
+	# 	audio = r.record(source)                        # extract audio data from the file
 
-	# input = r.recognize(audio)
-	# try:
-	#     print("You said " + input)    # recognize speech using Google Speech Recognition
-	# except LookupError:                            # speech is unintelligible
-	#     print("Could not understand audio")
+	input = r.recognize(audio)
+	try:
+	    print("You said " + input)    # recognize speech using Google Speech Recognition
+	except LookupError:                            # speech is unintelligible
+	    print("Could not understand audio")
 	    
 	#os.system("open /Applications/Google\ Chrome.app http://www." + input + ".com/")
 
-	input = "tell me a joke please"
+	#input = "tell me a joke please"
 
 	input = input.lower()
 	input = input.split()
