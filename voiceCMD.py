@@ -14,13 +14,26 @@
  
 import speech_recognition as sr
 import os
+import platform
 
 
-def open_chrome(data):
-	os.system("open /Applications/Google\ Chrome.app http://www." + data + ".com/")
+def open_app(data):
+
+	system = platform.system()
+
+	if(system == "Darwin"):
+		#os.system("open /Applications/Google\ Chrome.app http://www." + data)
+		os.system("open http://" + data)
+
+	elif(system == "Linux"):
+		os.system("xdg-open " + data)
+
+	elif(system == "Windows"):
+		os.system("start " + data)
+
 	return "opening app"
 
-def close_chrome(data):
+def close_app(data):
 	import subprocess
 
 	#adapted from: https://discussions.apple.com/thread/4479819
@@ -106,15 +119,15 @@ def joke(data):
 	#return joke_dict[r]
 
 def sleep(data):
-	return "7"
+	os.system("pmset sleepnow")
 
 
-def wake(data):
+def reboot(data):
 	return "8"
 
 
 def shutdown(data):
-	return "9"
+	os.system("shutdown -h now")
 
 
 def record_memo(data):
@@ -130,14 +143,14 @@ def getVoiceCommand():
 	command_list = ["open", "close", 
 					"time", "day", 
 					"music", "joke",
-					"sleep", "wake", 
+					"sleep", "reboot", 
 					"shutdown", "record", 
 					"playback"];
 
-	command_list_dict = {"open": open_chrome, "close": close_chrome, 
+	command_list_dict = {"open": open_app, "close": close_app, 
 						 "time": what_time, "day": what_day, 
 						 "music": play_music, "joke": joke,
-						 "sleep": sleep, "wake": wake, 
+						 "sleep": sleep, "reboot": reboot, 
 						 "shutdown": shutdown, "record": record_memo, 
 						 "playback": play_memo};
 
