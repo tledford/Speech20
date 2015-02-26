@@ -16,24 +16,23 @@ import speech_recognition as sr
 import os
 import platform
 
+system = platform.system()
 
-def open_app(data):
-
-	system = platform.system()
+def browse_site(data):
 
 	if(system == "Darwin"):
 		#os.system("open /Applications/Google\ Chrome.app http://www." + data)
 		os.system("open http://" + data)
 
 	elif(system == "Linux"):
-		os.system("xdg-open " + data)
+		os.system("xdg-open http://" + data)
 
 	elif(system == "Windows"):
 		os.system("start " + data)
 
 	return "opening app"
 
-def close_app(data):
+def close_site(data):
 	import subprocess
 
 	#adapted from: https://discussions.apple.com/thread/4479819
@@ -60,7 +59,21 @@ def what_time(data):
 
 	if minute < 10:
 		minute = str(0) + str(minute)
-	return("Current time is " + str(hour) + ":" + str(minute))
+
+	output = "Current time is " + str(hour) + ":" + str(minute)
+
+	if(system == "Darwin"):
+		os.system("say " + output)
+
+	elif(system == "Linux"):
+		#CHANGE THIS
+		os.system()
+
+	elif(system == "Windows"):
+		#CHANGE THIS
+		os.system()
+	
+	return(output)
 
 
 def what_day(data):
@@ -94,73 +107,209 @@ def what_day(data):
 
 	#weekday = weekdays_dict[weekday]
 	#print(weekday)
-	return("Today is " + weekdays_dict[weekday] + " " + month_dict[month] + " " + str(day) + " " + str(year))
+	output = "Today is " + weekdays_dict[weekday] + " " + month_dict[month] + " " + str(day) + " " + str(year)
 
+	if(system == "Darwin"):
+		os.system("say " + output)
 
-def play_music(data):
-	return "5"
+	elif(system == "Linux"):
+		#CHANGE THIS
+		os.system()
+
+	elif(system == "Windows"):
+		#CHANGE THIS
+		os.system()
+
+	return(output)
+
 
 def joke(data):
 	from random import randrange
 
 	randNum = randrange(1,11)
 
-	joke_dict = {1: "joke1",
-			  	 2: "joke2",
-			  	 3: "joke3",
-			  	 4: "joke4",
-			  	 5: "joke5",
-			  	 6: "joke6",
-			  	 7: "joke7",
-			   	 8: "joke8",
-			  	 9: "joke9",
-			  	 10: "joke10"}
+	joke_dict = {1: "I never wanted to believe that my Dad was stealing from his job as a road worker. But when I got home, all the signs were there.",
+			  	 2: "I was wondering why the ball kept getting bigger and bigger, and then it hit me.",
+			  	 3: "Two fish are in a tank. One turns to the other and says, Hey, do you know how to drive this thing?",
+			  	 4: "Why did the tomato turn red? Because he saw the salad dressing!",
+			  	 5: "What do cars eat on their toast? Traffic jam.",
+			  	 6: "What do you call an alligator wearing a vest? An investigator.",
+			  	 7: "What did the blanket say when it fell off the bed? Aww sheet!",
+			   	 8: "What did the pony say when he had a sore throat? Sorry, I'm a little horse.",
+			  	 9: "An SQL statement walks into a bar and sees two tables. It approaches and asks, may I join you?",
+			  	 10: "How many programmers does it take to change a light bulb? None. Its a hardware problem."}
 
-	#return joke_dict[r]
+	if(system == "Darwin"):
+		os.system("say " + joke_dict[randNum])
+
+	elif(system == "Linux"):
+		#CHANGE THIS
+		os.system()
+
+	elif(system == "Windows"):
+		#CHANGE THIS
+		os.system()
+
+	return joke_dict[randNum]
 
 def sleep(data):
-	os.system("pmset sleepnow")
+
+	if(system == "Darwin"):
+		os.system("pmset sleepnow")
+
+	elif(system == "Linux"):
+		#CHANGE THIS
+		os.system()
+
+	elif(system == "Windows"):
+		#CHANGE THIS
+		os.system()
 
 
 def reboot(data):
-	return "8"
+
+	if(system == "Darwin"):
+		osascript = "tell app \"System Event\" to restart"
+		#adapted from: http://stackoverflow.com/questions/14942709/closing-a-program-using-terminal-from-python
+		subprocess.call(['osascript', '-e', script])
+
+	elif(system == "Linux"):
+		#CHANGE THIS
+		os.system("start " + data)
+
+	elif(system == "Windows"):
+		#CHANGE THIS
+		os.system("start " + data)
 
 
 def shutdown(data):
-	os.system("shutdown -h now")
+
+	if(system == "Darwin"):
+		osascript = "tell app \"System Events\" to shut down"
+		#adapted from: http://stackoverflow.com/questions/14942709/closing-a-program-using-terminal-from-python
+		subprocess.call(['osascript', '-e', script])
+
+	elif(system == "Linux"):
+		#CHANGE THIS
+		os.system()
+
+	elif(system == "Windows"):
+		#CHANGE THIS
+		os.system()
 
 
 def record_memo(data):
-	return "10"
+	import pyaudio
+	import wave
+	import sys
 
+	CHUNK = 1024
+	FORMAT = pyaudio.paInt16
+	CHANNELS = 2
+	RATE = 48000
+	RECORD_SECONDS = 5
+	WAVE_OUTPUT_FILENAME = "output.wav"
+
+	p = pyaudio.PyAudio()
+
+	stream = p.open(format=FORMAT,
+	                channels=CHANNELS,
+	                rate=RATE,
+	                input=True,
+	                frames_per_buffer=CHUNK)
+
+	print("* recording")
+
+	frames = []
+
+	for i in range(0, int(RATE / CHUNK * RECORD_SECONDS)):
+	    data = stream.read(CHUNK)
+	    frames.append(data)
+
+	print("* done recording")
+
+	stream.stop_stream()
+	stream.close()
+	p.terminate()
+
+	wf = wave.open(WAVE_OUTPUT_FILENAME, 'wb')
+	wf.setnchannels(CHANNELS)
+	wf.setsampwidth(p.get_sample_size(FORMAT))
+	wf.setframerate(RATE)
+	wf.writeframes(b''.join(frames))
+	wf.close()
+
+	return "Done."
 
 def play_memo(data):
-	return "11"
+	import pyaudio
+	import wave
+	import sys
+
+	# length of data to read.
+	chunk = 1024
+
+	# open the file for reading.
+	wf = wave.open("output.wav", 'rb')
+
+	# create an audio object
+	p = pyaudio.PyAudio()
+
+	# open stream based on the wave object which has been input.
+	stream = p.open(format =
+	                p.get_format_from_width(wf.getsampwidth()),
+	                channels = wf.getnchannels(),
+	                rate = wf.getframerate(),
+	                output = True)
+
+	# read data (based on the chunk size)
+	data = wf.readframes(chunk)
+
+	# play stream (looping from beginning of file to the end)
+	while data != '':
+	    # writing to the stream is what *actually* plays the sound.
+	    stream.write(data)
+	    data = wf.readframes(chunk)
+
+	# cleanup stuff.
+	stream.close()    
+	p.terminate()
+
+	return "Done."
 
 
 def getVoiceCommand():
 
-	command_list = ["open", "close", 
-					"time", "day", 
-					"music", "joke",
+	command_list = ["browse", "close", 
+					"time", "day",
+					"joke", "playback",
 					"sleep", "reboot", 
-					"shutdown", "record", 
-					"playback"];
+					"shutdown", "record"];
 
-	command_list_dict = {"open": open_app, "close": close_app, 
+	command_list_dict = {"browse": browse_site, "close": close_site, 
 						 "time": what_time, "day": what_day, 
-						 "music": play_music, "joke": joke,
+						 "playback": play_memo, "joke": joke,
 						 "sleep": sleep, "reboot": reboot, 
-						 "shutdown": shutdown, "record": record_memo, 
-						 "playback": play_memo};
+						 "shutdown": shutdown, "record": record_memo};
 
-	r = sr.Recognizer()
-	with sr.Microphone() as source:                # use the default microphone as the audio source
-	    audio = r.listen(source)                   # listen for the first phrase and extract it into audio data
-	# with sr.WavFile("test.wav") as source:              # use "test.wav" as the audio source
-	# 	audio = r.record(source)                        # extract audio data from the file
+	flag = False;
+	input = 'null'
+	while flag == False:
+		try:
+			r = sr.Recognizer()
+			with sr.Microphone() as source:                # use the default microphone as the audio source
+			    audio = r.listen(source)                   # listen for the first phrase and extract it into audio data
+			# with sr.WavFile("test.wav") as source:              # use "test.wav" as the audio source
+			# 	audio = r.record(source)                        # extract audio data from the file
 
-	input = r.recognize(audio)
+			input = r.recognize(audio)
+		except Exception, e:
+			flag = False;
+			print ("Couldn't quite understand that, try again.")
+		else:
+			flag = True
+			
+	
 	try:
 	    print("You said " + input)    # recognize speech using Google Speech Recognition
 	except LookupError:                            # speech is unintelligible
@@ -178,8 +327,10 @@ def getVoiceCommand():
 		for i, term in enumerate(input):
 			if cmd == term:
 				found = cmd;
-				data = input[i+1]
-				break;
+				try:
+					data = input[i+1]
+				except IndexError, e:
+					data = 'NULL';
 
 	if(found != "null"):
 		#print(data)
