@@ -340,6 +340,11 @@ def getVoiceCommand():
 
 
 
+##########################
+# ANITA!!!!!!!!!!
+# Call this function with
+# your GUI button!
+##########################
 getVoiceCommand();
 
 
