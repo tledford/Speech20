@@ -42,6 +42,7 @@ def close(data):
 		os.system("ps x | grep "+ data +" | kill -1 `awk '{print $1}'`")
 	elif(system == "Windows"):
 		#not sure yet
+		os.system()
 
 def start(data):
 	if (system == "Darwin"):
@@ -52,6 +53,7 @@ def start(data):
 		os.system(data + "&")
 	elif(system == "Windows"):
 		#not sure yet
+		os.system()
 
 #	import subprocess
 #
@@ -80,7 +82,7 @@ def dev():
 
 	elif(system == "Windows"):
 		#CHANGE THIS
-		#os.system()
+		os.system()
 	
 
 def what_time(data):
@@ -106,7 +108,7 @@ def what_time(data):
 
 	elif(system == "Windows"):
 		#CHANGE THIS
-		#os.system()
+		os.system()
 	
 	return(output)
 
@@ -200,7 +202,7 @@ def sleep(data):
 
 	elif(system == "Windows"):
 		#CHANGE THIS
-		#os.system()
+		os.system()
 
 
 def reboot(data):
