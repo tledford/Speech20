@@ -25,40 +25,76 @@ def browse_site(data):
 		os.system("open http://" + data)
 
 	elif(system == "Linux"):
-		os.system("xdg-open http://" + data)
+		os.system("espeak \'Opening new tab for " + data + "\'")
+		os.system("xdg-open http://" + data + "&")
 
 	elif(system == "Windows"):
 		os.system("start " + data)
 
 	return "opening app"
 
-def close_site(data):
-	import subprocess
+def close(data):
+	if (system == "Darwin"):
+		os.system("say \'Closing " + data + "\'")
+		os.system("ps x | grep "+ data +" | kill -1 `awk '{print $1}'`")
+	elif (system == "Linux"):
+		os.system("espeak \'Closing " + data + "\'")
+		os.system("ps x | grep "+ data +" | kill -1 `awk '{print $1}'`")
+	elif(system == "Windows"):
+		#not sure yet
 
-	#adapted from: https://discussions.apple.com/thread/4479819
-	script = """
-	tell application "Google Chrome"
-	    set windowList to every tab of every window whose URL contains \"""" + data + """\"
-	    repeat with tabList in windowList
-	        repeat with thisTab in tabList
-	            close thisTab
-	        end repeat
-	    end repeat
-	end tell
-	"""
+def start(data):
+	if (system == "Darwin"):
+		os.system("say \'Opening " + data + "\'")
+		#go tommy go
+	elif (system == "Linux"):
+		os.system("espeak \'Opening " + data + "\'")
+		os.system(data + "&")
+	elif(system == "Windows"):
+		#not sure yet
 
-	#adapted from: http://stackoverflow.com/questions/14942709/closing-a-program-using-terminal-from-python
-	subprocess.call(['osascript', '-e', script])
-	return "closing app"
+#	import subprocess
+#
+#	#adapted from: https://discussions.apple.com/thread/4479819
+#	script = """
+#	tell application "Google Chrome"
+#	    set windowList to every tab of every window whose URL contains \"""" + data + """\"
+#	    repeat with tabList in windowList
+#	        repeat with thisTab in tabList
+#	            close thisTab
+#	        end repeat
+#	    end repeat
+#	end tell
+#	"""
+#
+#	#adapted from: http://stackoverflow.com/questions/14942709/closing-a-program-using-terminal-from-python
+#	subprocess.call(['osascript', '-e', script])
+#	return "closing app"
+
+def dev():
+	if(system == "Darwin"):
+		os.system("say \'This command is currently under development\'")
+
+	elif(system == "Linux"):
+		os.system("espeak \'This command is currently under development\'")
+
+	elif(system == "Windows"):
+		#CHANGE THIS
+		#os.system()
+	
 
 def what_time(data):
 	from datetime import datetime
 
+	apm = datetime.now().time().strftime('%p')
 	hour = (datetime.now().time().hour)%12
 	minute = datetime.now().time().minute
 
 	if minute < 10:
-		minute = str(0) + str(minute)
+		minute = 'o' + str(minute)
+
+	if hour == 0:
+		hour = 12
 
 	output = "Current time is " + str(hour) + ":" + str(minute)
 
@@ -66,12 +102,11 @@ def what_time(data):
 		os.system("say " + output)
 
 	elif(system == "Linux"):
-		#CHANGE THIS
-		os.system()
+		os.system("espeak \'The current time is" + str(hour) + " " + str(minute) + apm + "\'")
 
 	elif(system == "Windows"):
 		#CHANGE THIS
-		os.system()
+		#os.system()
 	
 	return(output)
 
@@ -114,7 +149,7 @@ def what_day(data):
 
 	elif(system == "Linux"):
 		#CHANGE THIS
-		os.system()
+		os.system("espeak \'Today is " + weekdays_dict[weekday] + " " + month_dict[month] + " " + str(day) + " " + str(year) + "\'")
 
 	elif(system == "Windows"):
 		#CHANGE THIS
@@ -126,7 +161,7 @@ def what_day(data):
 def joke(data):
 	from random import randrange
 
-	randNum = randrange(1,11)
+	randNum = randrange(1,10)
 
 	joke_dict = {1: "I never wanted to believe that my Dad was stealing from his job as a road worker. But when I got home, all the signs were there.",
 			  	 2: "I was wondering why the ball kept getting bigger and bigger, and then it hit me.",
@@ -135,7 +170,7 @@ def joke(data):
 			  	 5: "What do cars eat on their toast? Traffic jam.",
 			  	 6: "What do you call an alligator wearing a vest? An investigator.",
 			  	 7: "What did the blanket say when it fell off the bed? Aww sheet!",
-			   	 8: "What did the pony say when he had a sore throat? Sorry, I'm a little horse.",
+			   	 8: "What did the pony say when he had a sore throat? Sorry, Im a little horse.",
 			  	 9: "An SQL statement walks into a bar and sees two tables. It approaches and asks, may I join you?",
 			  	 10: "How many programmers does it take to change a light bulb? None. Its a hardware problem."}
 
@@ -144,7 +179,7 @@ def joke(data):
 
 	elif(system == "Linux"):
 		#CHANGE THIS
-		os.system()
+		os.system("espeak \'" + joke_dict[randNum] + "\'")
 
 	elif(system == "Windows"):
 		#CHANGE THIS
@@ -159,11 +194,13 @@ def sleep(data):
 
 	elif(system == "Linux"):
 		#CHANGE THIS
-		os.system()
+		#os.system("espeak \'Sleeping\'")
+		#os.system("pm-hibernate &")
+		dev()
 
 	elif(system == "Windows"):
 		#CHANGE THIS
-		os.system()
+		#os.system()
 
 
 def reboot(data):
@@ -175,7 +212,8 @@ def reboot(data):
 
 	elif(system == "Linux"):
 		#CHANGE THIS
-		os.system("start " + data)
+		os.system("espeak Rebooting")
+		os.system("reboot")
 
 	elif(system == "Windows"):
 		#CHANGE THIS
@@ -190,13 +228,28 @@ def shutdown(data):
 		subprocess.call(['osascript', '-e', script])
 
 	elif(system == "Linux"):
-		#CHANGE THIS
-		os.system()
+		os.system("poweroff")
 
 	elif(system == "Windows"):
 		#CHANGE THIS
 		os.system()
 
+def cmds(data):
+	if(system == "Linux"):
+		os.system("espeak \'Current commands are: browse, open, close, time, day, joke, sleep, reboot, shutdown, record, playback, and help\'")
+
+def notFound():
+	if(system == "Linux"):
+		os.system("espeak \'Command not found\'")
+
+def egg(data):
+	if(system == "Linux"):
+		os.system("espeak \'Bacon is love, bacon is life\'")
+
+def say(data):
+	if(system == "Linux"):
+		#os.system("espeak \'" + data + "\'")
+		dev()
 
 def record_memo(data):
 	import pyaudio
@@ -284,13 +337,17 @@ def getVoiceCommand():
 					"time", "day",
 					"joke", "playback",
 					"sleep", "reboot", 
-					"shutdown", "record"];
+					"shutdown", "record",
+					"open", "bacon",
+					"help", "say"];
 
-	command_list_dict = {"browse": browse_site, "close": close_site, 
+	command_list_dict = {"browse": browse_site, "close": close, 
 						 "time": what_time, "day": what_day, 
 						 "playback": play_memo, "joke": joke,
 						 "sleep": sleep, "reboot": reboot, 
-						 "shutdown": shutdown, "record": record_memo};
+						 "shutdown": shutdown, "record": record_memo,
+						 "open": start, "bacon": egg,
+						 "help": cmds, "say": say};
 
 	flag = False;
 	input = 'null'
@@ -352,3 +409,4 @@ getVoiceCommand();
 
 
 
+getVoiceCommand();
