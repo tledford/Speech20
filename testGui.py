@@ -1,5 +1,11 @@
 #!/usr/bin/python
 # -*- coding: utf-8 -*-
+        	
+import speech_recognition as sr
+import os
+import platform
+
+
 
 import wx
 
@@ -14,22 +20,21 @@ class Example(wx.Frame):
         self.InitUI()
                 
     def InitUI(self):
-
-        self.pnl = wx.Panel(self)
-        self.PlayButton = wx.Button(self.pnl, wx.ID_ANY, label = "RECORD", pos=(10, 10))
-        self.Bind(wx.EVT_BUTTON, self.playVoice, self.PlayButton)
-        
-        
-        self.exitButton = wx.Button(self.pnl, wx.ID_ANY, label = "CLOSE", pos=(20, 20))
-        self.Bind(wx.EVT_BUTTON, self.OnQuitApp, self.exitButton)
-        
-
-        self.SetSize((220, 180))
+    	self.button1 = wx.Button(self, id=-1, label='Record Voice',pos=(8, 8), size=(175, 28))
+    	self.button2 = wx.Button(self, id=-1, label='Voice Command',pos=(8, 36), size=(175, 28))
+    	self.button3 = wx.Button(self, id=-1, label= 'Close' ,pos=(8,64), size=(175,28))
+    	self.button1.Bind(wx.EVT_BUTTON, self.playVoice)
+    	self.button2.Bind(wx.EVT_BUTTON, self.testMethod)
+    	self.button3.Bind(wx.EVT_BUTTON, self.OnQuitApp)
+    	
+    	self.SetSize((220, 180))
         self.SetTitle("Speech Recognition")
-        self.Centre()
+        self.Center()
         self.Show(True)
-    
-
+        
+    def testMethod(self, event):
+		print "it works!"
+		
     def playVoice(self, event):
         
    
@@ -44,7 +49,7 @@ class Example(wx.Frame):
         
         self.Close()
 
-    	
+	
 
 def main():
     
@@ -55,22 +60,4 @@ def main():
 
 if __name__ == '__main__':
     main() 
-    
-    
-        
-'''
-        grid = wx.GridSizer(3, 2)
-
-        grid.AddMany([(wx.Button(pnl, wx.ID_CANCEL), 0, wx.TOP | wx.LEFT, 9),
-            (wx.Button(pnl, wx.ID_DELETE), 0, wx.TOP, 9),
-            (wx.Button(pnl, wx.ID_SAVE), 0, wx.LEFT, 9),
-            (wx.Button(pnl, wx.ID_EXIT)),
-            (wx.Button(pnl, wx.ID_MENU_PLAY), 0, wx.LEFT, 9),
-            (wx.Button(pnl, wx.ID_NEW))])
-
-        self.Bind(wx.EVT_BUTTON, self.OnQuitApp, id=wx.ID_EXIT)
-        self.Bind(wx.EVT_BUTTON, self.OnDo, id=wx.ID_MENU_PLAY)
-
-        pnl.SetSizer(grid)
-'''
  
