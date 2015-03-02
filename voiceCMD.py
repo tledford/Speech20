@@ -15,6 +15,7 @@
 import speech_recognition as sr
 import os
 import platform
+import subprocess
 
 system = platform.system()
 
@@ -22,6 +23,7 @@ def browse_site(data):
 
 	if(system == "Darwin"):
 		#os.system("open /Applications/Google\ Chrome.app http://www." + data)
+		os.system("say opening " + data)
 		os.system("open http://" + data)
 
 	elif(system == "Linux"):
@@ -35,8 +37,9 @@ def browse_site(data):
 
 def close(data):
 	if (system == "Darwin"):
-		os.system("say \'Closing " + data + "\'")
-		os.system("ps x | grep "+ data +" | kill -1 `awk '{print $1}'`")
+		script = "quit app \"" + data + "\""
+		subprocess.call(['osascript', '-e', script])
+		os.system("say Closing " + data)
 	elif (system == "Linux"):
 		os.system("espeak \'Closing " + data + "\'")
 		os.system("ps x | grep "+ data +" | kill -1 `awk '{print $1}'`")
@@ -46,7 +49,9 @@ def close(data):
 
 def start(data):
 	if (system == "Darwin"):
-		os.system("say \'Opening " + data + "\'")
+		script = "open app \"" + data + "\""
+		subprocess.call(['osascript', '-e', script])
+		os.system("say Opening " + data)
 		#go tommy go
 	elif (system == "Linux"):
 		os.system("espeak \'Opening " + data + "\'")
@@ -75,7 +80,7 @@ def start(data):
 
 def dev():
 	if(system == "Darwin"):
-		os.system("say \'This command is currently under development\'")
+		os.system("say This command is currently under development")
 
 	elif(system == "Linux"):
 		os.system("espeak \'This command is currently under development\'")
@@ -88,15 +93,21 @@ def dev():
 def what_time(data):
 	from datetime import datetime
 
+	from random import randrange
+	randNum = randrange(1,100)
+
+	if(randNum == 58):
+		if(system == "Darwin"):
+			os.system("say hammer time!")
+			return("Hammer time")
+
+		elif(system == "Linux"):
+			os.system("espeak \'Hammer time\'")
+			return("Hammer time")
+
 	apm = datetime.now().time().strftime('%p')
 	hour = (datetime.now().time().hour)%12
 	minute = datetime.now().time().minute
-
-	if minute < 10:
-		minute = 'o' + str(minute)
-
-	if hour == 0:
-		hour = 12
 
 	output = "Current time is " + str(hour) + ":" + str(minute)
 
@@ -104,6 +115,11 @@ def what_time(data):
 		os.system("say " + output)
 
 	elif(system == "Linux"):
+		if minute < 10:
+			minute = 'o' + str(minute)
+
+		if hour == 0:
+			hour = 12
 		os.system("espeak \'The current time is" + str(hour) + " " + str(minute) + apm + "\'")
 
 	elif(system == "Windows"):
@@ -237,14 +253,21 @@ def shutdown(data):
 		os.system()
 
 def cmds(data):
+	if(system == "Darwin"):
+		os.system("say Current commands are: browse, open, close, time, day, joke, sleep, reboot, shutdown, record, playback, and help")
+
 	if(system == "Linux"):
 		os.system("espeak \'Current commands are: browse, open, close, time, day, joke, sleep, reboot, shutdown, record, playback, and help\'")
 
 def notFound():
+	if(system == "Darwin"):
+		os.system("say Command not found")
 	if(system == "Linux"):
 		os.system("espeak \'Command not found\'")
 
 def egg(data):
+	if(system == "Darwin"):
+		os.system("say Bacon is love, bacon is life")
 	if(system == "Linux"):
 		os.system("espeak \'Bacon is love, bacon is life\'")
 
@@ -411,4 +434,3 @@ getVoiceCommand();
 
 
 
-getVoiceCommand();
