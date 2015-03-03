@@ -254,7 +254,7 @@ def shutdown(data):
 
 def cmds(data):
 	if(system == "Darwin"):
-		os.system("say Current commands are: browse, open, close, time, day, joke, sleep, reboot, shutdown, record, playback, and help")
+		os.system("say Current commands are: browse, open, close, time, day, joke, sleep, reboot, shutdown, reecord, playback, and help")
 
 	if(system == "Linux"):
 		os.system("espeak \'Current commands are: browse, open, close, time, day, joke, sleep, reboot, shutdown, record, playback, and help\'")
