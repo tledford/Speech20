@@ -427,7 +427,7 @@ def getVoiceCommand():
 # Call this function with
 # your GUI button!
 ##########################
-getVoiceCommand();
+#getVoiceCommand();
 
 
 

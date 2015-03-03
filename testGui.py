@@ -4,12 +4,8 @@
 import speech_recognition as sr
 import os
 import platform
-
-
-
 import wx
-
-import speech_recognition as sr
+import voiceCMD
 
 
 class Example(wx.Frame):
@@ -20,33 +16,30 @@ class Example(wx.Frame):
         self.InitUI()
                 
     def InitUI(self):
-    	self.button1 = wx.Button(self, id=-1, label='Record Voice',pos=(8, 8), size=(175, 28))
-    	self.button2 = wx.Button(self, id=-1, label='Voice Command',pos=(8, 36), size=(175, 28))
-    	self.button3 = wx.Button(self, id=-1, label= 'Close' ,pos=(8,64), size=(175,28))
-    	self.button1.Bind(wx.EVT_BUTTON, self.playVoice)
-    	self.button2.Bind(wx.EVT_BUTTON, self.testMethod)
-    	self.button3.Bind(wx.EVT_BUTTON, self.OnQuitApp)
+    	self.button1 = wx.Button(self, id=-1, label='Record Memo',pos=(22, 8), size=(175, 28))
+    	self.button2 = wx.Button(self, id=-1, label='Play Memo',pos=(22, 36), size=(175, 28))
+        self.button3 = wx.Button(self, id=-1, label='Voice Control',pos=(22, 64), size=(175, 28))
+    	self.button4 = wx.Button(self, id=-1, label= 'Close' ,pos=(22, 100), size=(175,28))
+    	self.button1.Bind(wx.EVT_BUTTON, self.recordMemo)
+    	self.button2.Bind(wx.EVT_BUTTON, self.playMemo)
+        self.button3.Bind(wx.EVT_BUTTON, self.listenBtn)
+    	self.button4.Bind(wx.EVT_BUTTON, self.OnQuitApp)
     	
     	self.SetSize((220, 180))
         self.SetTitle("Speech Recognition")
         self.Center()
         self.Show(True)
         
-    def testMethod(self, event):
-		print "it works!"
+    def listenBtn(self, event):
+		voiceCMD.getVoiceCommand()
 		
-    def playVoice(self, event):
-        
-   
-    		r = sr.Recognizer()
-		with sr.Microphone() as source:                
-  	  		audio = r.listen(source)                   
-		try:
-   			print("You said " + r.recognize(audio))    
-		except LookupError:                           
-    			print("Could not understand audio")
-    def OnQuitApp(self, event):
-        
+    def recordMemo(self, event):
+        voiceCMD.record_memo("params")
+
+    def playMemo(self, event):
+        voiceCMD.play_memo("params")
+
+    def OnQuitApp(self, event):        
         self.Close()
 
 	
