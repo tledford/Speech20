@@ -76,6 +76,3 @@ def visualizer():
 				characters[ord(char) - 97]+=1
 	for x in range(0,26):
 		print chr((x + 97)) + ": " + str(characters[x])
-visualizer()
-
-	
