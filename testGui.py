@@ -20,13 +20,13 @@ class Example(wx.Frame):
     	self.button1 = wx.Button(self, id=-1, label='Record Memo',pos=(22, 8), size=(175, 28))
     	self.button2 = wx.Button(self, id=-1, label='Play Memo',pos=(22, 36), size=(175, 28))
         self.button3 = wx.Button(self, id=-1, label='Voice Control',pos=(22, 64), size=(175, 28))
-        self.button4 = wx.Button(self, id=-1, label='Transcribe Podcast', pos=(22, 80), size=(175,28))
-    	self.button4 = wx.Button(self, id=-1, label= 'Close' ,pos=(22, 100), size=(175,28))
+        self.button4 = wx.Button(self, id=-1, label='Transcribe Podcast', pos=(22, 96), size=(175,28))
+    	self.button5 = wx.Button(self, id=-1, label= 'Close' ,pos=(22, 104), size=(175,28))
     	self.button1.Bind(wx.EVT_BUTTON, self.recordMemo)
     	self.button2.Bind(wx.EVT_BUTTON, self.playMemo)
         self.button3.Bind(wx.EVT_BUTTON, self.listenBtn)
-        self.button3.Bing(wx.EVT_BUTTON, self.transcribePodcast)
-    	self.button4.Bind(wx.EVT_BUTTON, self.OnQuitApp)
+        self.button4.Bind(wx.EVT_BUTTON, self.transcribePodcast)
+    	self.button5.Bind(wx.EVT_BUTTON, self.OnQuitApp)
     	
     	self.SetSize((220, 180))
         self.SetTitle("Speech Recognition")
@@ -45,7 +45,7 @@ class Example(wx.Frame):
     def OnQuitApp(self, event):        
         self.Close()
     def transcribePodcast(self, event):
-		transcribePodcast.openfile()
+		transcribePodcast.transcribe()
 		
 	
 
