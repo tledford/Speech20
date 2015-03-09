@@ -61,6 +61,8 @@ def transcribe():
 
 
 def visualizer():
+	import csv
+	
 	characters = [];
 	for x in range(0,26):
 		characters.append(0)
@@ -76,3 +78,8 @@ def visualizer():
 				characters[ord(char) - 97]+=1
 	for x in range(0,26):
 		print chr((x + 97)) + ": " + str(characters[x])
+
+	resultFile = open("characters.csv",'wb')
+	wr = csv.writer(resultFile, dialect='excel')
+	for counter in characters:
+	     wr.writerow([counter,])

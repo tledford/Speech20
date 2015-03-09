@@ -1,6 +1,6 @@
 #!/usr/bin/python
 # -*- coding: utf-8 -*-
-        	
+            
 import speech_recognition as sr
 import os
 import platform
@@ -17,25 +17,27 @@ class Example(wx.Frame):
         self.InitUI()
                 
     def InitUI(self):
-    	self.button1 = wx.Button(self, id=-1, label='Record Memo',pos=(22, 8), size=(175, 28))
-    	self.button2 = wx.Button(self, id=-1, label='Play Memo',pos=(22, 36), size=(175, 28))
+        self.button1 = wx.Button(self, id=-1, label='Record Memo',pos=(22, 8), size=(175, 28))
+        self.button2 = wx.Button(self, id=-1, label='Play Memo',pos=(22, 36), size=(175, 28))
         self.button3 = wx.Button(self, id=-1, label='Voice Control',pos=(22, 64), size=(175, 28))
         self.button4 = wx.Button(self, id=-1, label='Transcribe Podcast', pos=(22, 96), size=(175,28))
-    	self.button5 = wx.Button(self, id=-1, label= 'Close' ,pos=(22, 104), size=(175,28))
-    	self.button1.Bind(wx.EVT_BUTTON, self.recordMemo)
-    	self.button2.Bind(wx.EVT_BUTTON, self.playMemo)
+        self.button6 = wx.Button(self, id=-1, label='Visualizer', pos=(22, 128), size=(175,28))
+        self.button5 = wx.Button(self, id=-1, label= 'Close' ,pos=(22, 168), size=(175,28))
+        self.button1.Bind(wx.EVT_BUTTON, self.recordMemo)
+        self.button2.Bind(wx.EVT_BUTTON, self.playMemo)
         self.button3.Bind(wx.EVT_BUTTON, self.listenBtn)
         self.button4.Bind(wx.EVT_BUTTON, self.transcribePodcast)
-    	self.button5.Bind(wx.EVT_BUTTON, self.OnQuitApp)
-    	
-    	self.SetSize((220, 180))
+        self.button6.Bind(wx.EVT_BUTTON, self.visualize)
+        self.button5.Bind(wx.EVT_BUTTON, self.OnQuitApp)
+        
+        self.SetSize((220, 300))
         self.SetTitle("Speech Recognition")
         self.Center()
         self.Show(True)
         
     def listenBtn(self, event):
-		voiceCMD.getVoiceCommand()
-		
+        voiceCMD.getVoiceCommand()
+        
     def recordMemo(self, event):
         voiceCMD.record_memo("params")
 
@@ -44,10 +46,14 @@ class Example(wx.Frame):
 
     def OnQuitApp(self, event):        
         self.Close()
+
     def transcribePodcast(self, event):
-		transcribePodcast.transcribe()
-		
-	
+        transcribePodcast.transcribe()
+
+    def visualize(self, event):
+        transcribePodcast.visualizer()
+        
+    
 
 def main():
     
@@ -58,4 +64,4 @@ def main():
 
 if __name__ == '__main__':
     main() 
- 
+
