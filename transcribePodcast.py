@@ -24,7 +24,7 @@ def transcribe():
 	start_pos = float(0)
 	end_pos = float(6)
 
-	while end_pos <= 7: #only 7 to test short clip, real version should be 'length'
+	while end_pos <= length: #only 7 to test short clip, real version should be 'length'
 
 		origAudio.setpos(start_pos * frameRate)
 		chunkData = origAudio.readframes(int((end_pos - start_pos) * frameRate))
@@ -58,8 +58,24 @@ def transcribe():
 		start_pos += 6
 	file.close()
 	open_file()
-	
 
 
+def visualizer():
+	characters = [];
+	for x in range(0,26):
+		characters.append(0)
+
+	with open('newfile.txt') as f:
+		while True:
+			char = f.read(1)
+			if not char:
+				break
+			char = char.lower()
+			if (ord(char) != 32 and ord(char) != 10):
+				#print (ord(char) - 97)
+				characters[ord(char) - 97]+=1
+	for x in range(0,26):
+		print chr((x + 97)) + ": " + str(characters[x])
+visualizer()
 
 	
