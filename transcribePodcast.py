@@ -3,6 +3,8 @@ import wave
 import platform
 import os
 import wx
+import matplotlib.pyplot as plt
+import pylab
 
 system = platform.system()
 
@@ -62,8 +64,7 @@ def transcribe():
 
 
 def visualizer():
-	import csv
-	
+
 	characters = [];
 	for x in range(0,26):
 		characters.append(0)
@@ -75,29 +76,16 @@ def visualizer():
 				break
 			char = char.lower()
 			if (ord(char) != 32 and ord(char) != 10):
-				#print (ord(char) - 97)
 				characters[ord(char) - 97]+=1
-	for x in range(0,26):
-		print chr((x + 97)) + ": " + str(characters[x])
+	#for x in range(0,26):
+		#print chr((x + 97)) + ": " + str(characters[x])
+		
 
-	resultFile = open("characters.csv",'wb')
-	wr = csv.writer(resultFile, dialect='excel')
-	for counter in characters:
-	     wr.writerow([counter,])
-	     
-def guiViz():
-	
-	class viz (wx.Frame):
-		def __init__(self, parent, id):
-			wx.Frame.__init__(self, parent, id, 'Transcribe Podcast', size(300,200))
-			panel = wx.Panel(self)
-			
-			wx.StaticText(panel, -1,  "Hello", (10,10))
-	if __name__ == '__main__':
-		app=wx.PySimpleApp()
-		frame=guiViz(parent=None, id = 1)
-		frame.Show()
-		app.MainLoop()
-	     
-guiViz()
+	x = [1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26]
+	plt.plot(x, characters)
+	plt.xlabel('Alphabet')
+	plt.ylabel('Quantity of Character Repeated')
+	plt.title('Transcribed Podcast')
+	pylab.xticks([1, 2, 3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26], ['a','b','c','d','e','f','g','h','i','j','k','l','m','n','o','p','q','r','s','t','u','v','w','x','y','z'])
+	plt.show()
 	     

@@ -1,17 +1,3 @@
-# import speech_recognition as sr
-# r = sr.Recognizer()
-# with sr.WavFile("test.wav") as source:              # use "test.wav" as the audio source
-#     audio = r.record(source)                        # extract audio data from the file
-
-# try:
-#     list = r.recognize(audio,True)                  # generate a list of possible transcriptions
-#     print("Possible transcriptions:")
-#     for prediction in list:
-#         print(" " + prediction["text"] + " (" + str(prediction["confidence"]*100) + "%)")
-# except LookupError:                                 # speech is unintelligible
-#     print("Could not understand audio")
-
- 
 import speech_recognition as sr
 import os
 import platform
@@ -43,9 +29,6 @@ def close(data):
 	elif (system == "Linux"):
 		os.system("espeak \'Closing " + data + "\'")
 		os.system("ps x | grep "+ data +" | kill -1 `awk '{print $1}'`")
-	elif(system == "Windows"):
-		#not sure yet
-		os.system()
 
 def start(data):
 	if (system == "Darwin"):
@@ -56,9 +39,6 @@ def start(data):
 	elif (system == "Linux"):
 		os.system("espeak \'Opening " + data + "\'")
 		os.system(data + "&")
-	elif(system == "Windows"):
-		#not sure yet
-		os.system()
 
 #	import subprocess
 #
@@ -84,10 +64,6 @@ def dev():
 
 	elif(system == "Linux"):
 		os.system("espeak \'This command is currently under development\'")
-
-	elif(system == "Windows"):
-		#CHANGE THIS
-		os.system()
 	
 
 def what_time(data):
@@ -121,10 +97,6 @@ def what_time(data):
 		if hour == 0:
 			hour = 12
 		os.system("espeak \'The current time is" + str(hour) + " " + str(minute) + apm + "\'")
-
-	elif(system == "Windows"):
-		#CHANGE THIS
-		os.system()
 	
 	return(output)
 
@@ -158,20 +130,13 @@ def what_day(data):
 	year = datetime.today().year
 	weekday = datetime.today().weekday()
 
-	#weekday = weekdays_dict[weekday]
-	#print(weekday)
 	output = "Today is " + weekdays_dict[weekday] + " " + month_dict[month] + " " + str(day) + " " + str(year)
 
 	if(system == "Darwin"):
 		os.system("say " + output)
 
 	elif(system == "Linux"):
-		#CHANGE THIS
 		os.system("espeak \'Today is " + weekdays_dict[weekday] + " " + month_dict[month] + " " + str(day) + " " + str(year) + "\'")
-
-	elif(system == "Windows"):
-		#CHANGE THIS
-		os.system()
 
 	return(output)
 
@@ -196,12 +161,7 @@ def joke(data):
 		os.system("say " + joke_dict[randNum])
 
 	elif(system == "Linux"):
-		#CHANGE THIS
 		os.system("espeak \'" + joke_dict[randNum] + "\'")
-
-	elif(system == "Windows"):
-		#CHANGE THIS
-		os.system()
 
 	return joke_dict[randNum]
 
@@ -216,10 +176,6 @@ def sleep(data):
 		#os.system("pm-hibernate &")
 		dev()
 
-	elif(system == "Windows"):
-		#CHANGE THIS
-		os.system()
-
 
 def reboot(data):
 
@@ -229,13 +185,8 @@ def reboot(data):
 		subprocess.call(['osascript', '-e', script])
 
 	elif(system == "Linux"):
-		#CHANGE THIS
 		os.system("espeak Rebooting")
 		os.system("reboot")
-
-	elif(system == "Windows"):
-		#CHANGE THIS
-		os.system("start " + data)
 
 
 def shutdown(data):
@@ -247,10 +198,8 @@ def shutdown(data):
 
 	elif(system == "Linux"):
 		os.system("poweroff")
-
-	elif(system == "Windows"):
-		#CHANGE THIS
 		os.system()
+
 
 def cmds(data):
 	if(system == "Darwin"):
@@ -259,11 +208,13 @@ def cmds(data):
 	if(system == "Linux"):
 		os.system("espeak \'Current commands are: browse, open, close, time, day, joke, sleep, reboot, shutdown, reecord, playback, and help\'")
 
+
 def notFound():
 	if(system == "Darwin"):
 		os.system("say Command not found")
 	if(system == "Linux"):
 		os.system("espeak \'Command not found\'")
+
 
 def egg(data):
 	if(system == "Darwin"):
@@ -271,10 +222,6 @@ def egg(data):
 	if(system == "Linux"):
 		os.system("espeak \'Bacon is love, bacon is life\'")
 
-def say(data):
-	if(system == "Linux"):
-		#os.system("espeak \'" + data + "\'")
-		dev()
 
 def record_memo(data):
 	import pyaudio
@@ -364,7 +311,7 @@ def getVoiceCommand():
 					"sleep", "reboot", 
 					"shutdown", "record",
 					"open", "bacon",
-					"help", "say"];
+					"help"];
 
 	command_list_dict = {"browse": browse_site, "close": close, 
 						 "time": what_time, "day": what_day, 
@@ -372,7 +319,7 @@ def getVoiceCommand():
 						 "sleep": sleep, "reboot": reboot, 
 						 "shutdown": shutdown, "record": record_memo,
 						 "open": start, "bacon": egg,
-						 "help": cmds, "say": say};
+						 "help": cmds};
 
 	flag = False;
 	input = 'null'
@@ -397,10 +344,7 @@ def getVoiceCommand():
 	    print("You said " + input)    # recognize speech using Google Speech Recognition
 	except LookupError:                            # speech is unintelligible
 	    print("Could not understand audio")
-	    
-	#os.system("open /Applications/Google\ Chrome.app http://www." + input + ".com/")
 
-	#input = "tell me a joke please"
 
 	input = input.lower()
 	input = input.split()
@@ -420,18 +364,3 @@ def getVoiceCommand():
 		print(command_list_dict[found](data))
 	else:
 		print("not found")
-
-
-
-##########################
-# ANITA!!!!!!!!!!
-# Call this function with
-# your GUI button!
-##########################
-#getVoiceCommand();
-
-
-
-
-
-
