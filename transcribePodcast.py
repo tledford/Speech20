@@ -52,7 +52,6 @@ def transcribe():
 			file.write("\n")
 		
 		except LookupError:                                 # speech is unintelligible
-			print("Could not understand audio")
 			start_pos -= 6.25
 			end_pos -= 6.25
 		
