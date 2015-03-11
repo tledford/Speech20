@@ -31,10 +31,10 @@ class Example(wx.Frame):
         self.button3.Bind(wx.EVT_BUTTON, self.listenBtn)
         self.button4.Bind(wx.EVT_BUTTON, self.transcribePodcast)
         self.button6.Bind(wx.EVT_BUTTON, self.visualize)
-        self.button9.Bind(wx.EVT_BUTTON, self.OnQuitApp)
         self.button7.Bind(wx.EVT_BUTTON, self.recordVoice)
         self.button8.Bind(wx.EVT_BUTTON, self.displayVoice)
-        self.button8
+    	self.button9.Bind(wx.EVT_BUTTON, self.OnQuitApp)
+
         
         self.SetSize((220, 400))
         self.SetBackgroundColour("blue")
