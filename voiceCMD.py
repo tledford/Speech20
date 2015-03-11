@@ -379,6 +379,7 @@ def getVoiceCommand():
 	while flag == False:
 		try:
 			r = sr.Recognizer()
+			r.energy_threshold = 2000
 			with sr.Microphone() as source:                # use the default microphone as the audio source
 			    audio = r.listen(source)                   # listen for the first phrase and extract it into audio data
 			# with sr.WavFile("test.wav") as source:              # use "test.wav" as the audio source
