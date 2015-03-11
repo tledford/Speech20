@@ -19,13 +19,13 @@ class Example(wx.Frame):
                 
     def InitUI(self):
         self.button1 = wx.Button(self, id=-1, label='Record Memo',pos=(22, 8), size=(175, 28))
-        self.button2 = wx.Button(self, id=-1, label='Play Memo',pos=(22, 36), size=(175, 28))
-        self.button3 = wx.Button(self, id=-1, label='Voice Control',pos=(22, 64), size=(175, 28))
-        self.button4 = wx.Button(self, id=-1, label='Transcribe Podcast', pos=(22, 96), size=(175,28))
+        self.button2 = wx.Button(self, id=-1, label='Play Memo',pos=(22, 38), size=(175, 28))
+        self.button3 = wx.Button(self, id=-1, label='Voice Control',pos=(22, 68), size=(175, 28))
+        self.button4 = wx.Button(self, id=-1, label='Transcribe Podcast', pos=(22, 98), size=(175,28))
         self.button6 = wx.Button(self, id=-1, label='Visualizer', pos=(22, 128), size=(175,28))
-        self.button7 = wx.Button(self, id=-1, label='Record Voice', pos=(22,168), size= (175,28))
-        self.button8 = wx.Button(self, id=-1, label='Display Recorded Voice', pos=(22, 306), size= (175,28))
-        self.button9 = wx.Button(self, id=-1, label='Close' ,pos=(22, 334), size=(175,28))
+        self.button7 = wx.Button(self, id=-1, label='Record Voice', pos=(22,158), size= (175,28))
+        self.button8 = wx.Button(self, id=-1, label='Display Recorded Voice', pos=(22, 188), size= (175,28))
+        self.button9 = wx.Button(self, id=-1, label='Close' ,pos=(22, 228), size=(175,28))
         self.button1.Bind(wx.EVT_BUTTON, self.recordMemo)
         self.button2.Bind(wx.EVT_BUTTON, self.playMemo)
         self.button3.Bind(wx.EVT_BUTTON, self.listenBtn)
@@ -36,7 +36,7 @@ class Example(wx.Frame):
     	self.button9.Bind(wx.EVT_BUTTON, self.OnQuitApp)
 
         
-        self.SetSize((220, 400))
+        self.SetSize((220, 265))
         self.SetBackgroundColour("blue")
         self.SetTitle("Speech Recognition")
         self.Center()
