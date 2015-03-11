@@ -2,6 +2,7 @@ import speech_recognition as sr
 import wave
 import platform
 import os
+import wx
 
 system = platform.system()
 
@@ -83,3 +84,20 @@ def visualizer():
 	wr = csv.writer(resultFile, dialect='excel')
 	for counter in characters:
 	     wr.writerow([counter,])
+	     
+def guiViz():
+	
+	class viz (wx.Frame):
+		def __init__(self, parent, id):
+			wx.Frame.__init__(self, parent, id, 'Transcribe Podcast', size(300,200))
+			panel = wx.Panel(self)
+			
+			wx.StaticText(panel, -1,  "Hello", (10,10))
+	if __name__ == '__main__':
+		app=wx.PySimpleApp()
+		frame=guiViz(parent=None, id = 1)
+		frame.Show()
+		app.MainLoop()
+	     
+guiViz()
+	     
