@@ -4,7 +4,7 @@ import os
 
 system = platform.system()
 
-def recordAndOpen():
+def recordVoice():
 	newfile = open('newrecordfile.txt', 'w')
 	
 	r = sr.Recognizer()
@@ -21,11 +21,11 @@ def recordAndOpen():
 		
 	newfile.close()
 	
+def openNewFile():
 	if system == "Darwin":
 		os.system("open newrecordfile.txt")
 		
 	elif system == "Linux":
 		os.system("gedit newrecordfile.txt")
+
 	
-    
-recordAndOpen()
