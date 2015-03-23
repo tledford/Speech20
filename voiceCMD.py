@@ -1,3 +1,14 @@
+#######################################################
+# Library to handle voice commands from our GUI application.
+# Since different OSes execute processes in different ways,
+# each function has an if/else to determine the OS of the
+# machine calling the function. Darwin is MAC OSX and Linux is Linux.
+# Winodws OS is only currently supported for browsing a webpage.
+#
+# Last Edited: 23 March 2015
+#######################################################
+
+
 import speech_recognition as sr
 import os
 import platform
@@ -5,6 +16,7 @@ import subprocess
 
 system = platform.system()
 
+#function to open a webpage to the input URL
 def browse_site(data):
 
 	if(system == "Darwin"):
@@ -21,6 +33,7 @@ def browse_site(data):
 
 	return "opening app"
 
+#function to close a running app
 def close(data):
 	if (system == "Darwin"):
 		script = "quit app \"" + data + "\""
@@ -30,6 +43,7 @@ def close(data):
 		os.system("espeak \'Closing " + data + "\'")
 		os.system("ps x | grep "+ data +" | kill -1 `awk '{print $1}'`")
 
+#function to start an app on the computer
 def start(data):
 	if (system == "Darwin"):
 		script = "open app \"" + data + "\""
@@ -58,6 +72,7 @@ def start(data):
 #	subprocess.call(['osascript', '-e', script])
 #	return "closing app"
 
+#function to handle currently unknown commands.
 def dev():
 	if(system == "Darwin"):
 		os.system("say This command is currently under development")
@@ -65,7 +80,7 @@ def dev():
 	elif(system == "Linux"):
 		os.system("espeak \'This command is currently under development\'")
 	
-
+#function to dictate the current time
 def what_time(data):
 	from datetime import datetime
 
@@ -100,7 +115,7 @@ def what_time(data):
 	
 	return(output)
 
-
+#function to dictate the current day, month, and year
 def what_day(data):
 	from datetime import datetime
 
@@ -140,7 +155,7 @@ def what_day(data):
 
 	return(output)
 
-
+#function to dictate a random joke, pulled from a list of 10 predefined jokes.
 def joke(data):
 	from random import randrange
 
@@ -165,6 +180,8 @@ def joke(data):
 
 	return joke_dict[randNum]
 
+#function to sleep a computer.
+#Currently only supported on Mac OSX
 def sleep(data):
 
 	if(system == "Darwin"):
@@ -176,7 +193,7 @@ def sleep(data):
 		#os.system("pm-hibernate &")
 		dev()
 
-
+#function to restart a computer
 def reboot(data):
 
 	if(system == "Darwin"):
@@ -188,7 +205,7 @@ def reboot(data):
 		os.system("espeak Rebooting")
 		os.system("reboot")
 
-
+#function to shutdown a computer.
 def shutdown(data):
 
 	if(system == "Darwin"):
