@@ -1,5 +1,16 @@
 #!/usr/bin/python
 # -*- coding: utf-8 -*-
+
+
+# testGui.py
+# Author: Team 20 
+# Created: March 2015
+# Summary: This file is the main file to the project. 
+# It will prompt the GUI and display different 
+# buttons that allow the user to use our projects.
+# Buttons include Record Memo, Play Memo, Voice Control, Transcribe Podcast, 
+# Visualizer, Record Voice, Display Recorded Voice, Close. 
+
             
 import speech_recognition as sr
 import os
@@ -18,6 +29,7 @@ class Example(wx.Frame):
         self.InitUI()
                 
     def InitUI(self):
+    	# Creates buttons 
         self.button1 = wx.Button(self, id=-1, label='Record Memo',pos=(22, 8), size=(175, 28))
         self.button2 = wx.Button(self, id=-1, label='Play Memo',pos=(22, 38), size=(175, 28))
         self.button3 = wx.Button(self, id=-1, label='Voice Control',pos=(22, 68), size=(175, 28))
@@ -26,6 +38,8 @@ class Example(wx.Frame):
         self.button7 = wx.Button(self, id=-1, label='Record Voice', pos=(22,158), size= (175,28))
         self.button8 = wx.Button(self, id=-1, label='Display Recorded Voice', pos=(22, 188), size= (175,28))
         self.button9 = wx.Button(self, id=-1, label='Close' ,pos=(22, 228), size=(175,28))
+        
+        # Adds functionality to buttons
         self.button1.Bind(wx.EVT_BUTTON, self.recordMemo)
         self.button2.Bind(wx.EVT_BUTTON, self.playMemo)
         self.button3.Bind(wx.EVT_BUTTON, self.listenBtn)
@@ -35,13 +49,14 @@ class Example(wx.Frame):
         self.button8.Bind(wx.EVT_BUTTON, self.displayVoice)
     	self.button9.Bind(wx.EVT_BUTTON, self.OnQuitApp)
 
-        
+        # GUI Aesthetics 
         self.SetSize((220, 300))
         self.SetBackgroundColour("blue")
         self.SetTitle("Speech Recognition")
         self.Center()
         self.Show(True)
-        
+    
+    #Functions that are called when buttons are clicked on    
     def listenBtn(self, event):
         voiceCMD.getVoiceCommand()
         
