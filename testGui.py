@@ -36,7 +36,7 @@ class Example(wx.Frame):
     	self.button9.Bind(wx.EVT_BUTTON, self.OnQuitApp)
 
         
-        self.SetSize((220, 265))
+        self.SetSize((220, 300))
         self.SetBackgroundColour("blue")
         self.SetTitle("Speech Recognition")
         self.Center()
