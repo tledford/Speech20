@@ -217,7 +217,7 @@ def shutdown(data):
 		os.system("poweroff")
 		os.system()
 
-
+#List of current commands
 def cmds(data):
 	if(system == "Darwin"):
 		os.system("say Current commands are: browse, open, close, time, day, joke, sleep, reboot, shutdown, reecord, playback, and help")
@@ -225,26 +225,29 @@ def cmds(data):
 	if(system == "Linux"):
 		os.system("espeak \'Current commands are: browse, open, close, time, day, joke, sleep, reboot, shutdown, reecord, playback, and help\'")
 
-
+#Says when command is not found
 def notFound():
 	if(system == "Darwin"):
 		os.system("say Command not found")
 	if(system == "Linux"):
 		os.system("espeak \'Command not found\'")
 
-
+#Easter eggs are love
 def egg(data):
 	if(system == "Darwin"):
 		os.system("say Bacon is love, bacon is life")
 	if(system == "Linux"):
 		os.system("espeak \'Bacon is love, bacon is life\'")
 
-
+#Function to record audio spoken as a .wav file
+#This creates the file, and overrides any previous
+#If you want the memo saved, do not re-run this
 def record_memo(data):
 	import pyaudio
 	import wave
 	import sys
 
+	#defines what the output file will be structured like
 	CHUNK = 1024
 	FORMAT = pyaudio.paInt16
 	CHANNELS = 2
@@ -263,17 +266,19 @@ def record_memo(data):
 	print("* recording")
 
 	frames = []
-
+	#records all spoken audio
 	for i in range(0, int(RATE / CHUNK * RECORD_SECONDS)):
 	    data = stream.read(CHUNK)
 	    frames.append(data)
 
 	print("* done recording")
 
+	#closes streams and stops listening
 	stream.stop_stream()
 	stream.close()
 	p.terminate()
 
+	#outputs all audio to a wav file
 	wf = wave.open(WAVE_OUTPUT_FILENAME, 'wb')
 	wf.setnchannels(CHANNELS)
 	wf.setsampwidth(p.get_sample_size(FORMAT))
@@ -282,7 +287,7 @@ def record_memo(data):
 	wf.close()
 
 	return "Done."
-
+#Plays the recorded memo
 def play_memo(data):
 	import pyaudio
 	import wave
@@ -319,7 +324,10 @@ def play_memo(data):
 
 	return "Done."
 
-
+#Arrays of valid commands
+#Used for understanding what the user wants to do
+#All valid commands must be added here, otherwise
+#they will be ignored when attempted
 def getVoiceCommand():
 
 	command_list = ["browse", "close", 
