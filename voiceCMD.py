@@ -197,9 +197,10 @@ def sleep(data):
 def reboot(data):
 
 	if(system == "Darwin"):
-		osascript = "tell app \"System Event\" to restart"
+		script = "tell app \"System Events\" to restart"
 		#adapted from: http://stackoverflow.com/questions/14942709/closing-a-program-using-terminal-from-python
 		subprocess.call(['osascript', '-e', script])
+
 
 	elif(system == "Linux"):
 		os.system("espeak Rebooting")
@@ -209,7 +210,7 @@ def reboot(data):
 def shutdown(data):
 
 	if(system == "Darwin"):
-		osascript = "tell app \"System Events\" to shut down"
+		script = "tell app \"System Events\" to shut down"
 		#adapted from: http://stackoverflow.com/questions/14942709/closing-a-program-using-terminal-from-python
 		subprocess.call(['osascript', '-e', script])
 
@@ -220,10 +221,10 @@ def shutdown(data):
 #List of current commands
 def cmds(data):
 	if(system == "Darwin"):
-		os.system("say Current commands are: browse, open, close, time, day, joke, sleep, reboot, shutdown, reecord, playback, and help")
+		os.system("say Current commands are: browse, open, close, time, day, joke, sleep, reboot, shutdown, and help")
 
 	if(system == "Linux"):
-		os.system("espeak \'Current commands are: browse, open, close, time, day, joke, sleep, reboot, shutdown, reecord, playback, and help\'")
+		os.system("espeak \'Current commands are: browse, open, close, time, day, joke, sleep, reboot, shutdown, and help\'")
 
 #Says when command is not found
 def notFound():
@@ -332,17 +333,15 @@ def getVoiceCommand():
 
 	command_list = ["browse", "close", 
 					"time", "day",
-					"joke", "playback",
+					"joke", "shut",
 					"sleep", "reboot", 
-					"shutdown", "record",
 					"open", "bacon",
 					"help"];
 
 	command_list_dict = {"browse": browse_site, "close": close, 
 						 "time": what_time, "day": what_day, 
-						 "playback": play_memo, "joke": joke,
-						 "sleep": sleep, "reboot": reboot, 
-						 "shutdown": shutdown, "record": record_memo,
+						 "shut": shutdown, "joke": joke,
+						 "sleep": sleep, "reboot": reboot,
 						 "open": start, "bacon": egg,
 						 "help": cmds};
 
